@@ -1,0 +1,57 @@
+{
+  "name": "logpro-flutter",
+  "displayName": "LogPro Flutter",
+  "description": "A VSCode extension to check for logPro package and insert custom log statements.",
+  "version": "0.0.1",
+  "engines": {
+      "vscode": "^1.75.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EslamFares/logPro_flutter_extension"
+  },
+  "categories": [
+      "Other"
+  ],
+  "main": "./out/extension.js",
+  "icon": "images/icon.png",
+  "contributes": {
+      "commands": [
+          {
+              "command": "logpro-flutter.checkLogPro",
+              "title": "Check for logPro Package"
+          },
+          {
+              "command": "logpro-flutter.insertLogPro",
+              "title": "Insert logPro Statement"
+          }
+      ],
+      "keybindings": [
+          {
+              "command": "logpro-flutter.insertLogPro",
+              "key": "ctrl+shift+'",
+              "when": "editorTextFocus"
+          }
+      ]
+  },
+  "scripts": {
+      "vscode:prepublish": "npm run compile",
+      "compile": "tsc -p ./",
+      "watch": "tsc -watch -p ./",
+      "pretest": "npm run compile && npm run lint",
+      "lint": "eslint src --ext ts",
+      "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+      "@types/glob": "^7.1.1",
+      "@types/mocha": "^8.2.2",
+      "@types/node": "^12.11.7",
+      "@typescript-eslint/eslint-plugin": "^4.14.2",
+      "@typescript-eslint/parser": "^4.14.2",
+      "eslint": "^7.18.0",
+      "glob": "^7.1.6",
+      "mocha": "^8.2.1",
+      "typescript": "^4.1.3",
+      "@vscode/test-electron": "^1.3.0"
+  }
+}
