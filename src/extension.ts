@@ -74,9 +74,13 @@ export function activate(context: vscode.ExtensionContext) {
         const selection = editor.selection;
         const selectedText = editor.document.getText(selection);
         let logProCode = '';
+        const wrapSingleWordInBraces = vscode.workspace.getConfiguration('logpro-flutter').get<boolean>('wrapSingleWordInBraces') ?? true;
+
 
         if (selectedText) {
-            logProCode = `LogPro().green("${selectedText} : \${${selectedText}}");`;
+            logProCode = wrapSingleWordInBraces
+                        ?  `LogPro().green("${selectedText} : \${${selectedText}}");`:
+                        `LogPro().green("${selectedText} : \$${selectedText}");`;
         } else {
             logProCode = `LogPro().green("");`;
         }
