@@ -60,7 +60,7 @@ export function activate(context: vscode.ExtensionContext) {
             editBuilder.insert(newLinePosition, logProCode + '\n');
         });
 
-        const importStatement = context.globalState.get<string>('logpro-flutter.importStatement') || 'const/log_pro.dart';
+        const importStatement = vscode.workspace.getConfiguration('logpro-flutter').get<string>('importStatement') || 'const/log_pro.dart';
         addImportStatement(editor, importStatement);
     });
 
@@ -127,7 +127,7 @@ export function activate(context: vscode.ExtensionContext) {
             editBuilder.insert(newLinePosition, logProCode + '\n');
         });
 
-        const importStatement = context.globalState.get<string>('logpro-flutter.importStatement') || 'const/log_pro.dart';
+        const importStatement = vscode.workspace.getConfiguration('logpro-flutter').get<string>('importStatement') || 'const/log_pro.dart';
         addImportStatement(editor, importStatement);
     });
 
@@ -163,7 +163,7 @@ export function activate(context: vscode.ExtensionContext) {
             editBuilder.insert(newLinePosition, customStartStateCode + '\n');
         });
 
-        const importStatement = context.globalState.get<string>('logpro-flutter.customStartimportStatement') || 'package:flutter/material.dart';
+        const importStatement = vscode.workspace.getConfiguration('logpro-flutter').get<string>('customStartimportStatement') || 'package:flutter/material.dart';
         addImportStatement(editor, importStatement);
     });
 
@@ -198,4 +198,4 @@ function addImportStatement(editor: vscode.TextEditor, importPath: string) {
     });
 }
 
-export function deactivate() { }
+export function deactivate() {}
