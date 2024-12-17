@@ -1,57 +1,92 @@
 {
-  "name": "logpro-flutter",
-  "displayName": "LogPro Flutter",
-  "description": "A VSCode extension to check for logPro package and insert custom log statements.",
-  "version": "0.0.1",
-  "engines": {
-      "vscode": "^1.75.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/EslamFares/logPro_flutter_extension"
-  },
-  "categories": [
-      "Other"
-  ],
-  "main": "./out/extension.js",
-  "icon": "images/icon.png",
-  "contributes": {
-      "commands": [
-          {
-              "command": "logpro-flutter.checkLogPro",
-              "title": "Check for logPro Package"
-          },
-          {
-              "command": "logpro-flutter.insertLogPro",
-              "title": "Insert logPro Statement"
-          }
-      ],
-      "keybindings": [
-          {
-              "command": "logpro-flutter.insertLogPro",
-              "key": "ctrl+shift+'",
-              "when": "editorTextFocus"
-          }
-      ]
-  },
-  "scripts": {
-      "vscode:prepublish": "npm run compile",
-      "compile": "tsc -p ./",
-      "watch": "tsc -watch -p ./",
-      "pretest": "npm run compile && npm run lint",
-      "lint": "eslint src --ext ts",
-      "test": "node ./out/test/runTest.js"
-  },
-  "devDependencies": {
-      "@types/glob": "^7.1.1",
-      "@types/mocha": "^8.2.2",
-      "@types/node": "^12.11.7",
-      "@typescript-eslint/eslint-plugin": "^4.14.2",
-      "@typescript-eslint/parser": "^4.14.2",
-      "eslint": "^7.18.0",
-      "glob": "^7.1.6",
-      "mocha": "^8.2.1",
-      "typescript": "^4.1.3",
-      "@vscode/test-electron": "^1.3.0"
-  }
+    "name": "logpro-flutter",
+    "displayName": "LogPro Flutter",
+    "description": "A VSCode extension to check for logPro package and insert custom log statements.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/EslamFares/logPro_flutter_extension"
+    },
+    "categories": [
+        "Other"
+    ],
+    "main": "./out/extension.js",
+    "icon": "images/icon.png",
+    "contributes": {
+        "commands": [
+            {
+                "command": "logpro-flutter.checkLogPro",
+                "title": "Check for logPro Package"
+            },
+            {
+                "command": "logpro-flutter.insertLogPro",
+                "title": "Insert logPro Statement"
+            },
+            {
+                "command": "logpro-flutter.insertLogProWithClass",
+                "title": "Insert logPro Statement with Class"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "logpro-flutter.insertLogPro",
+                "key": "ctrl+shift+'",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "logpro-flutter.insertLogProWithClass",
+                "key": "ctrl+shift+;",
+                "when": "editorTextFocus"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "LogPro Flutter Configuration",
+            "properties": {
+                "logpro-flutter.insertLogProShortcut": {
+                    "type": "string",
+                    "default": "ctrl+shift+'",
+                    "description": "Shortcut to insert logPro statement."
+                },
+                "logpro-flutter.insertLogProWithClassShortcut": {
+                    "type": "string",
+                    "default": "ctrl+shift+;",
+                    "description": "Shortcut to insert logPro statement with class."
+                },
+                "logpro-flutter.importStatement": {
+                    "type": "string",
+                    "default": "import 'const/log_pro.dart';",
+                    "description": "Import statement for logPro."
+                },
+                "logpro-flutter.wrapSingleWordInBraces": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Wrap single word in curly braces."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^8.2.2",
+        "@types/node": "^12.11.7",
+        "@typescript-eslint/eslint-plugin": "^4.14.2",
+        "@typescript-eslint/parser": "^4.14.2",
+        "eslint": "^7.18.0",
+        "glob": "^7.1.6",
+        "mocha": "^8.2.1",
+        "typescript": "^4.1.3",
+        "@vscode/test-electron": "^1.3.0"
+    }
 }
