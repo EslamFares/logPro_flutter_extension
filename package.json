@@ -3,6 +3,7 @@
     "displayName": "LogPro Flutter",
     "description": "A VSCode extension to check for logPro package and insert custom log statements.",
     "version": "0.0.1",
+    "publisher": "EslamFares",
     "engines": {
         "vscode": "^1.75.0"
     },
@@ -14,7 +15,7 @@
         "Other"
     ],
     "main": "./out/extension.js",
-    "icon": "images/icon.png",
+    "icon": "images/log_pro_icon.png",
     "contributes": {
         "commands": [
             {
