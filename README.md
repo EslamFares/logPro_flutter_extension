@@ -5,6 +5,7 @@ Log Pro Helper is a VS Code extension that simplifies adding `logPro` statements
 ## Getting Started
 - run  `flutter pub add log_pro`
 - Just create an instance of `LogPro` and start logging: `LogPro logPro = LogPro();`
+- logPro Package [open](https://pub.dev/packages/log_pro)
 
 ## Features
 - Insert `logPro.green("x": $x);` for selected text.
@@ -29,5 +30,5 @@ Log Pro Helper is a VS Code extension that simplifies adding `logPro` statements
 ## Release Notes
 ### 0.0.1
 
-# © Fares.dev
+- © Fares.dev
 
