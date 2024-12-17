@@ -32,6 +32,10 @@
             {
                 "command": "logpro-flutter.insertLogProCustom",
                 "title": "Insert Custom logPro Statement"
+            },
+            {
+                "command": "logpro-flutter.insertCustomStartState",
+                "title": "Insert Custom Start State"
             }
         ],
         "keybindings": [
@@ -49,6 +53,11 @@
                 "command": "logpro-flutter.insertLogProCustom",
                 "key": "ctrl+shift+\\",
                 "when": "editorTextFocus"
+            },
+            {
+                "command": "logpro-flutter.insertCustomStartState",
+                "key": "ctrl+shift+k",
+                "when": "editorTextFocus"
             }
         ],
         "configuration": {
@@ -65,7 +74,6 @@
                     "default": "ctrl+shift+;",
                     "description": "Shortcut to insert logPro statement with class."
                 },
-               
                 "logpro-flutter.wrapSingleWordInBraces": {
                     "type": "boolean",
                     "default": true,
@@ -97,6 +105,16 @@
                     "type": "string",
                     "default": "import 'const/log_pro.dart';",
                     "description": "Import statement for logPro."
+                },
+                "logpro-flutter.insertCustomStartStateShortcut": {
+                    "type": "string",
+                    "default": "ctrl+shift+k",
+                    "description": "Shortcut to insert custom start state."
+                },
+                "logpro-flutter.customStartState": {
+                    "type": "string",
+                    "default": "debugPrint",
+                    "description": "Custom start state to insert."
                 }
             }
         }

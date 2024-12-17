@@ -76,7 +76,6 @@ export function activate(context: vscode.ExtensionContext) {
         let logProCode = '';
         const wrapSingleWordInBraces = vscode.workspace.getConfiguration('logpro-flutter').get<boolean>('wrapSingleWordInBraces') ?? true;
 
-
         if (selectedText) {
             if (selectedText.includes('.')) {
                 logProCode = `LogPro().green("${selectedText} : \${${selectedText}}");`;
@@ -115,9 +114,9 @@ export function activate(context: vscode.ExtensionContext) {
             if (selectedText.includes('.')) {
                 logProCode = `logPro.${logType}("${selectedText} : \${${selectedText}}");`;
             } else {
-                logProCode = wrapSingleWordInBraces?
-                    `logPro.${logType}("${selectedText} : \${${selectedText}}");`:
-                    `logPro.${logType}("${selectedText} : \$${selectedText}");`;
+                logProCode = wrapSingleWordInBraces
+                    ? `logPro.${logType}("${selectedText} : \${${selectedText}}");`
+                    : `logPro.${logType}("${selectedText} : \$${selectedText}");`;
             }
         } else {
             logProCode = `logPro.${logType}("");`;
@@ -132,10 +131,47 @@ export function activate(context: vscode.ExtensionContext) {
         addImportStatement(editor, importStatement);
     });
 
+    // New section for custom start state
+    let disposable5 = vscode.commands.registerCommand('logpro-flutter.insertCustomStartState', () => {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            vscode.window.showErrorMessage('No active text editor.');
+            return;
+        }
+
+        const selection = editor.selection;
+        const selectedText = editor.document.getText(selection);
+        let customStartStateCode = '';
+        const wrapSingleWordInBraces = vscode.workspace.getConfiguration('logpro-flutter').get<boolean>('wrapSingleWordInBraces') ?? true;
+
+        const customStartState = vscode.workspace.getConfiguration('logpro-flutter').get<string>('customStartState') ?? 'debugPrint';
+
+        if (selectedText) {
+            if (selectedText.includes('.')) {
+                customStartStateCode = `${customStartState}("${selectedText} : \${${selectedText}}");`;
+            } else {
+                customStartStateCode = wrapSingleWordInBraces ?
+                    `${customStartState}("${selectedText} : \${${selectedText}}");` :
+                    `${customStartState}("${selectedText} : \$${selectedText}");`;
+            }
+        } else {
+            customStartStateCode = `${customStartState}("");`;
+        }
+
+        const newLinePosition = new vscode.Position(selection.end.line + 1, 0);
+        editor.edit(editBuilder => {
+            editBuilder.insert(newLinePosition, customStartStateCode + '\n');
+        });
+
+        // const importStatement = context.globalState.get<string>('logpro-flutter.importStatement') || 'const/log_pro.dart';
+        // addImportStatement(editor, importStatement);
+    });
+
     context.subscriptions.push(disposable);
     context.subscriptions.push(disposable2);
     context.subscriptions.push(disposable3);
     context.subscriptions.push(disposable4);
+    context.subscriptions.push(disposable5); // Add the new disposable
 }
 
 function addImportStatement(editor: vscode.TextEditor, importPath: string) {
