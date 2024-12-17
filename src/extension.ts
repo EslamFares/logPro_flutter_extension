@@ -78,9 +78,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 
         if (selectedText) {
-            logProCode = wrapSingleWordInBraces
-                        ?  `LogPro().green("${selectedText} : \${${selectedText}}");`:
-                        `LogPro().green("${selectedText} : \$${selectedText}");`;
+            if (selectedText.includes('.')) {
+                logProCode = `LogPro().green("${selectedText} : \${${selectedText}}");`;
+            } else {
+                logProCode = wrapSingleWordInBraces
+                    ? `LogPro().green("${selectedText} : \${${selectedText}}");` :
+                    `LogPro().green("${selectedText} : \$${selectedText}");`;
+            }
         } else {
             logProCode = `LogPro().green("");`;
         }
@@ -93,9 +97,45 @@ export function activate(context: vscode.ExtensionContext) {
         addImportStatement(editor, 'package:log_pro/log_pro.dart');
     });
 
+    let disposable4 = vscode.commands.registerCommand('logpro-flutter.insertLogProCustom', () => {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            vscode.window.showErrorMessage('No active text editor.');
+            return;
+        }
+
+        const selection = editor.selection;
+        const selectedText = editor.document.getText(selection);
+        let logProCode = '';
+        const wrapSingleWordInBraces = vscode.workspace.getConfiguration('logpro-flutter').get<boolean>('wrapSingleWordInBraces') ?? true;
+
+        const logType = vscode.workspace.getConfiguration('logpro-flutter').get<string>('logType') ?? 'green';
+
+        if (selectedText) {
+            if (selectedText.includes('.')) {
+                logProCode = `logPro.${logType}("${selectedText} : \${${selectedText}}");`;
+            } else {
+                logProCode = wrapSingleWordInBraces?
+                    `logPro.${logType}("${selectedText} : \${${selectedText}}");`:
+                    `logPro.${logType}("${selectedText} : \$${selectedText}");`;
+            }
+        } else {
+            logProCode = `logPro.${logType}("");`;
+        }
+
+        const newLinePosition = new vscode.Position(selection.end.line + 1, 0);
+        editor.edit(editBuilder => {
+            editBuilder.insert(newLinePosition, logProCode + '\n');
+        });
+
+        const importStatement = context.globalState.get<string>('logpro-flutter.importStatement') || 'const/log_pro.dart';
+        addImportStatement(editor, importStatement);
+    });
+
     context.subscriptions.push(disposable);
     context.subscriptions.push(disposable2);
     context.subscriptions.push(disposable3);
+    context.subscriptions.push(disposable4);
 }
 
 function addImportStatement(editor: vscode.TextEditor, importPath: string) {
@@ -122,4 +162,4 @@ function addImportStatement(editor: vscode.TextEditor, importPath: string) {
     });
 }
 
-export function deactivate() {}
+export function deactivate() { }

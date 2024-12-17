@@ -28,6 +28,10 @@
             {
                 "command": "logpro-flutter.insertLogProWithClass",
                 "title": "Insert logPro Statement with Class"
+            },
+            {
+                "command": "logpro-flutter.insertLogProCustom",
+                "title": "Insert Custom logPro Statement"
             }
         ],
         "keybindings": [
@@ -39,6 +43,11 @@
             {
                 "command": "logpro-flutter.insertLogProWithClass",
                 "key": "ctrl+shift+;",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "logpro-flutter.insertLogProCustom",
+                "key": "ctrl+shift+\\",
                 "when": "editorTextFocus"
             }
         ],
@@ -56,15 +65,38 @@
                     "default": "ctrl+shift+;",
                     "description": "Shortcut to insert logPro statement with class."
                 },
-                "logpro-flutter.importStatement": {
-                    "type": "string",
-                    "default": "import 'const/log_pro.dart';",
-                    "description": "Import statement for logPro."
-                },
+               
                 "logpro-flutter.wrapSingleWordInBraces": {
                     "type": "boolean",
                     "default": true,
                     "description": "Wrap single word in curly braces."
+                },
+                "logpro-flutter.insertLogProCustomShortcut": {
+                    "type": "string",
+                    "default": "ctrl+shift+\\",
+                    "description": "Shortcut to insert custom logPro statement you choose."
+                },
+                "logpro-flutter.logType": {
+                    "type": "string",
+                    "enum": [
+                        "green",
+                        "error",
+                        "grey",
+                        "info",
+                        "logit",
+                        "magenta",
+                        "normal",
+                        "risk",
+                        "warning",
+                        "whiteBlack"
+                    ],
+                    "default": "risk",
+                    "description": "Type of log statement to insert for your custom statement."
+                },
+                "logpro-flutter.importStatement": {
+                    "type": "string",
+                    "default": "import 'const/log_pro.dart';",
+                    "description": "Import statement for logPro."
                 }
             }
         }
